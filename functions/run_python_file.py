@@ -1,5 +1,6 @@
 import os
 import subprocess
+from google.genai import types
 
 def run_python_file(working_directory, file_path, args=[]):
     abs_path_test = os.path.abspath(os.path.join(working_directory, file_path))
@@ -27,3 +28,21 @@ def run_python_file(working_directory, file_path, args=[]):
         return '\n'.join(output)
     except Exception as e:
         return f"Error: executing Python file: {e}"
+
+schema_run_python_file = types.FunctionDeclaration(
+    name="run_python_file",
+    description="Execute file specified directory along with their sizes, constrained to the working directory.",
+    parameters=types.Schema(
+        type=types.Type.OBJECT,
+        properties={
+            "directory": types.Schema(
+                type=types.Type.STRING,
+                description="The directory to run files from, relative to the working directory. If not provided, run file in the working directory itself.",
+            ),
+            "file_path": types.Schema(
+                type=types.Type.STRING,
+                description="The path of the file."  
+            ),
+        },
+    ),
+)

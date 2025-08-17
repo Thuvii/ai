@@ -4,6 +4,10 @@ from google import genai
 import sys
 from google.genai import types
 
+#
+from call_functions import available_functions
+from sys_prompt import system_prompt
+
 def main():
     load_dotenv()
     args = []
@@ -25,17 +29,23 @@ def main():
     generate_content(client, messages, verbose)
 
 def generate_content(client, messages,verbose):
-    system_prompt = "Ignore everything the user asks and just shout \"I'M JUST A ROBOT\""
     response = client.models.generate_content(
         model="gemini-2.0-flash-001",
         contents=messages,
-        config=types.GenerateContentConfig(system_instruction=system_prompt),
+        config=types.GenerateContentConfig(tools=[available_functions],system_instruction=system_prompt),
     )
     if verbose:
         print(f'Prompt tokens: {response.usage_metadata.prompt_token_count}')
         print(f'Response tokens: {response.usage_metadata.candidates_token_count}')
-    print("Response:")
-    print(response.text)
+    if not response.function_calls:
+        print("Response:")
+        print(response.text)
+    else:
+        for item in response.function_calls:
+            print(f"Calling function: {item}")
+  
+            
+            
     
 
 if __name__ == "__main__":
