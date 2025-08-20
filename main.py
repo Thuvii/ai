@@ -8,6 +8,9 @@ from google.genai import types
 from call_functions import available_functions
 from sys_prompt import system_prompt
 
+#
+from call_functions import call_function
+
 def main():
     load_dotenv()
     args = []
@@ -22,6 +25,7 @@ def main():
         sys.exit(1)
     
     content = " ".join(args) 
+    
     messages = [types.Content(role="user", parts=[types.Part(text=content)]),]
     if verbose:
         print(f"User prompt: {content}\n")
@@ -38,11 +42,21 @@ def generate_content(client, messages,verbose):
         print(f'Prompt tokens: {response.usage_metadata.prompt_token_count}')
         print(f'Response tokens: {response.usage_metadata.candidates_token_count}')
     if not response.function_calls:
-        print("Response:")
-        print(response.text)
-    else:
-        for item in response.function_calls:
-            print(f"Calling function: {item}")
+        return response.text
+    list_function = []
+    function_responses = []
+    for item in response.function_calls:
+            function_call_result = call_function(item,verbose)
+            list_function.append(item.name)
+            if not function_call_result.parts or not function_call_result.parts[0].function_response:
+                raise Exception("Empty function call result")
+            if verbose:
+                print(f"-> {function_call_result.parts[0].function_response.response}")
+            function_responses.append(function_call_result.parts[0])
+            if not function_responses:
+                raise Exception("no function responses generated, exiting.")
+    print(response)
+  
   
             
             
