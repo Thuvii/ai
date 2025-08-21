@@ -20,12 +20,13 @@ available_functions = types.Tool(
 )
 
 def call_function(function_call_part, verbose=False):
-    dict = function_call_part.args
-    function_name = function_call_part.name
     if verbose:
-        print(f"Calling function: {function_name}({dict})")
+        print(
+            f" - Calling function: {function_call_part.name}({function_call_part.args})"
+        )
     else:
-        print(f" - Calling function: {function_name}")
+        print(f" - Calling function: {function_call_part.name}")
+    function_name = function_call_part.name
     function_map = {
         "get_file_content":get_file_content,
         "get_files_info":get_files_info,
@@ -42,8 +43,9 @@ def call_function(function_call_part, verbose=False):
                 )
             ],
         )
-    dict['working_directory'] = WORKING_DIR
-    function_result = function_map[function_name](**dict)
+    args = dict(function_call_part.args)
+    args['working_directory'] = WORKING_DIR
+    function_result = function_map[function_name](**args)
     return types.Content(
         role="tool",
             parts=[

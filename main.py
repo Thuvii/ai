@@ -29,8 +29,17 @@ def main():
     messages = [types.Content(role="user", parts=[types.Part(text=content)]),]
     if verbose:
         print(f"User prompt: {content}\n")
-
-    generate_content(client, messages, verbose)
+    for i in range(1,21):
+        try:
+            result = generate_content(client, messages, verbose)
+            if result is not None:
+                print(result)
+                break
+                
+        except Exception as e:
+            raise Exception(f'Error: {e}')
+        
+    
 
 def generate_content(client, messages,verbose):
     response = client.models.generate_content(
@@ -38,16 +47,20 @@ def generate_content(client, messages,verbose):
         contents=messages,
         config=types.GenerateContentConfig(tools=[available_functions],system_instruction=system_prompt),
     )
+    
+    if response.candidates:
+        for candidate in response.candidates:
+            messages.append(candidate.content)
+    
     if verbose:
         print(f'Prompt tokens: {response.usage_metadata.prompt_token_count}')
         print(f'Response tokens: {response.usage_metadata.candidates_token_count}')
     if not response.function_calls:
         return response.text
-    list_function = []
+    
     function_responses = []
     for item in response.function_calls:
             function_call_result = call_function(item,verbose)
-            list_function.append(item.name)
             if not function_call_result.parts or not function_call_result.parts[0].function_response:
                 raise Exception("Empty function call result")
             if verbose:
@@ -55,9 +68,11 @@ def generate_content(client, messages,verbose):
             function_responses.append(function_call_result.parts[0])
             if not function_responses:
                 raise Exception("no function responses generated, exiting.")
-    print(response)
-  
-  
+    for item in function_responses:
+        messages.append(types.Content(role="user", parts=[item]),)
+    
+    
+   
             
             
     

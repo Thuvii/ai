@@ -28,10 +28,6 @@ schema_write_file = types.FunctionDeclaration(
     parameters=types.Schema(
         type=types.Type.OBJECT,
         properties={
-            "directory": types.Schema(
-                type=types.Type.STRING,
-                description="The directory to write files from, relative to the working directory. If not provided, write file in the working directory itself.",
-            ),
             "file_path": types.Schema(
                 type=types.Type.STRING,
                 description="The path of the file. If not provided, write file in the working directory itself."  
