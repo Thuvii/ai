@@ -54,7 +54,7 @@ The agent can **read Python files**, **detect issues**, **generate fixes**, and 
 ---
 
 
-## ⚙️ Configuration
+## Configuration
 
 ### **WORKING_DIR**
 In `config.py`, set:
@@ -69,7 +69,7 @@ GEMINI_API_KEY=your_api_key_here
 ```
 ---
 
-## ▶️ How to Run the Project
+## How to Run the Project
 
 1. **Install `uv`** (if not already installed):
    ```bash
@@ -85,7 +85,7 @@ GEMINI_API_KEY=your_api_key_here
    
 ---
 
-## 🧠 How It Works
+## How It Works
 
 - **sys_prompt.py**: Contains the system prompt that defines the LLM's behavior and rules for processing user input.
 
@@ -95,9 +95,9 @@ GEMINI_API_KEY=your_api_key_here
 
 ---
 
-## ✅ Practical Applications
+## Practical Applications
 
-- **Functional Tool**: Even if simple, it demonstrates real-world integration with an LLM.
+- **Functional Tool**: A simple demonstration of real-world integration with an LLM.
 
 - **Modern Tech**: Showcases concepts like AI agents, LLMs, API integration, and Python CLI development.
 
@@ -117,7 +117,7 @@ GEMINI_API_KEY=your_api_key_here
 
 ---
 
-## 🙌 Credit
+## Credit
 
 **Special thanks to [Boot.dev](https://www.boot.dev) for helping me learn Python and back-end fundamentals.**
 
