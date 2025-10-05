@@ -6,7 +6,7 @@ The agent can **read Python files**, **detect issues**, **generate fixes**, and 
 
 ---
 
-## 🚀 Features
+## Features
 - **LLM-Powered Python Management**: The tool leverages a **Large Language Model (LLM)** to:
   - Read existing Python files
   - Modify and improve code
@@ -20,7 +20,7 @@ The agent can **read Python files**, **detect issues**, **generate fixes**, and 
 
 ---
 
-## 🧰 Key Technologies
+## Key Technologies
 - **Python** – Core programming language
 - **Google Gemini API** – Large Language Model integration
 - **Environment Management:** [uv](https://github.com/astral-sh/uv)
@@ -33,7 +33,7 @@ The agent can **read Python files**, **detect issues**, **generate fixes**, and 
 
 ---
 
-## 👨‍💻 My Contributions
+## My Contributions
 - Designed and implemented the **core agent logic** for autonomous code analysis and modification
 - Built **file operation handlers** for reading, writing, and managing Python source files
 - Developed **prompt engineering strategies** for effective communication with the Gemini API
@@ -43,7 +43,7 @@ The agent can **read Python files**, **detect issues**, **generate fixes**, and 
 
 ---
 
-## ⭐ Key Features & Accomplishments
+## Key Features & Accomplishments
 - **Autonomous Bug Detection**: Analyzes Python code for logical errors, syntax issues, and runtime problems
 - **Automated Code Fixes**: Generates and applies fixes directly to source files
 - **Verification System**: Executes modified code to validate solutions
@@ -125,7 +125,8 @@ GEMINI_API_KEY=your_api_key_here
 
 ## ⚠️ Disclaimer
 
-**This tool is experimental. Use with caution. Restrict the working directory to avoid unintentional file modifications.**
+**Educational purposes only, do not run this with untrusted inputs or in production environments. Use with caution. Restrict the working directory to avoid unintentional file modifications.**
+
 
 
 
